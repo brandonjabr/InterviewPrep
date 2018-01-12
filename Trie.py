@@ -24,5 +24,5 @@ class Trie:
         if "End Of Word" not in current_node:
             is_new_word = True
             current_node["End Of Word"] = {}
-
+        
         return is_new_word

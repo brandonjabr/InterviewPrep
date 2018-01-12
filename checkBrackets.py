@@ -1,22 +1,22 @@
 def checkBrackets(code):
-    openers_to_closers = {
+    match_dict = {
         '(' : ')',
         '{' : '}',
         '[' : ']'
     }
 
-    openers = frozenset(openers_to_closers.keys())
-    closers = frozenset(openers_to_closers.values())
+    open_chars = frozenset(match_dict.keys())
+    close_chars = frozenset(match_dict.values())
 
     open_stack = []
     
     for char in code:
-        if char in openers:
+        if char in open_chars:
             open_stack.append(char)
-        elif char in closers:
+        elif char in close_chars:
             last_opener = open_stack.pop()
 
-            if char != openers_to_closers[last_opener]:
+            if char != match_dict[last_opener]:
                 return False
     
     return True        

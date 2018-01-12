@@ -1,44 +1,22 @@
-def addTwoNumbers(l1, l2):
-
-    carryOne = 0
-    out = ListNode(0)
-    rootOut = out
+def addTwoNumbers(A, B):
+    aVal,bVal = '',''
     
-    while l1 and l2:
-        nextVal = l1.val + l2.val + carryOne
-            
-        if nextVal < 10:
-            out.val = nextVal
-            carryOne = 0
-        else:
-            out.val = nextVal - 10
-            carryOne = 1
-            
-        l1 = l1.next
-        l2 = l2.next
-        out.next = ListNode(0)
-        out = out.next
+    while A or B:
+        if A:
+            aVal += str(A.val)
+            A = A.next
+        if B:
+            bVal += str(B.val)
+            B = B.next
     
-    # Add remaining digits of longer number
-    if l1 and not l2:
-        while l1:
-            out.val = l1.val + carryOne
-            if not l1.next:
-                break
-            out.next = ListNode(0)
-            out = out.next
-            l1 = l1.next
-
-    if l2 and not l1:
-        while l2:
-            out.val = l2.val + carryOne
-            if not l2.next:
-                break
-            out.next = ListNode(0)
-            out = out.next
-            l2 = l2.next
-
-    return rootOut
+    target = str(int(aVal[::-1]) + int(bVal[::-1]))
+    
+    curr = ListNode(int(target[-1]))
+    root = curr
+    for char in target[::-1][1:]:
+        curr.next = ListNode(int(char))
+        curr = curr.next
+    return root
 
 
 class ListNode:
@@ -56,30 +34,30 @@ def printLL(l):
         l = l.next
     return ll_str
 
-l1 = ListNode(3)
-l1.next = ListNode(4)
-l1.next.next = ListNode(3)
-l1.next.next.next = ListNode(6)
+A = ListNode(3)
+A.next = ListNode(4)
+A.next.next = ListNode(3)
+A.next.next.next = ListNode(6)
 
-l2 = ListNode(4)
-l2.next = ListNode(6)
-l2.next.next = ListNode(4)
+B = ListNode(4)
+B.next = ListNode(6)
+B.next.next = ListNode(4)
 
 
 """
-l1 = 3 -> 4 -> 3 -> 6
-l2 = 4 -> 6 -> 4
+A = 3 -> 4 -> 3 -> 6
+B = 4 -> 6 -> 4
 
 out = -> 7 -> 0 -> 8 -> 6
 """
-assert (printLL(addTwoNumbers(l1,l2)) == '7 -> 0 -> 8 -> 6')
+assert (printLL(addTwoNumbers(A,B)) == '7 -> 0 -> 8 -> 6')
 
 """
-l1 = 3 -> 4 -> 9 -> 6
-l2 = 4 -> 6 -> 4
+A = 3 -> 4 -> 9 -> 6
+B = 4 -> 6 -> 4
 
 out = -> 7 -> 0 -> 4 -> 7
 """
-l1.next.next.val = 9
-assert (printLL(addTwoNumbers(l1,l2)) == '7 -> 0 -> 4 -> 7')
+A.next.next.val = 9
+assert (printLL(addTwoNumbers(A,B)) == '7 -> 0 -> 4 -> 7')
 

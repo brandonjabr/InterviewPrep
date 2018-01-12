@@ -8,5 +8,4 @@ def twoSum(nums, target):
             comp = target - k
             if comp in d:
                 return [d[k],d[comp]]
-    
         return False

@@ -1,10 +1,9 @@
-def subs(l):
-    if l == []:
-        return [[]]
+def subs(nums):
+    res = [[]]
 
-    x = subs(l[1:])
-
-    return x + [[l[0]] + y for y in x]
+    for num in nums:
+        res += [item + [num] for item in res]
+    return res
 
 def subsBinary(A):
     result = []
